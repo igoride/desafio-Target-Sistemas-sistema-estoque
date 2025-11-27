@@ -6,7 +6,7 @@ namespace Movimentacoes.Service;
 public class MovimentacaoService
 {
     private static readonly EstoqueService _estoqueService = new EstoqueService();
-    public void criarMovimentacao(List<Movimentacao> movimentacoes, List<Estoque> estoques)
+    public static void criarMovimentacao(List<Movimentacao> movimentacoes, List<Estoque> estoques)
     {
         int quantidadeEstoque;
         int codigoProduto;
@@ -15,15 +15,15 @@ public class MovimentacaoService
         string? aux;
         bool adicao = true;
         
-        Console.WriteLine("Digite o codigo do Produto: ");
+        Console.WriteLine("Digite o codigo do Produto: \n");
         aux = Console.ReadLine();
         int.TryParse(aux, out codigoProduto);
         
-        Console.WriteLine("Digite a quantidade de estoque: ");
+        Console.WriteLine("Digite a quantidade de estoque: \n");
         aux = Console.ReadLine();
         int.TryParse(aux, out quantidadeEstoque);
         
-        Console.WriteLine("Digite o tipo de Movimentacao: (Entrada ou Saida(Não é case sensitive))");
+        Console.WriteLine("Digite o tipo de Movimentacao: (Entrada ou Saida(Não é case sensitive))\n");
         tipoMovimentacao = Console.ReadLine()!.ToUpper();
 
         if (tipoMovimentacao.Equals("SAIDA"))
@@ -40,7 +40,7 @@ public class MovimentacaoService
         movimentacoes.Add(new Movimentacao(tipoMovimentacao, quantidadeEstoque, codigoMovimentacao));
     }
 
-    public void printByCodigo(int codigo, List<Movimentacao> movimentacoes)
+    public static void printByCodigo(int codigo, List<Movimentacao> movimentacoes)
     {
         movimentacoes.ForEach(movimentacao =>
         {
@@ -51,8 +51,8 @@ public class MovimentacaoService
         });
     }
 
-    public void printAll(List<Movimentacao> movimentacoes)
+    public static void printAll(List<Movimentacao> movimentacoes)
     {
-        movimentacoes.ForEach(movimentacao => Console.WriteLine(movimentacao.ToString() + "\n----------------\n"));
+        movimentacoes.ForEach(movimentacao => Console.WriteLine(movimentacao + "\n----------------\n"));
     }
 }

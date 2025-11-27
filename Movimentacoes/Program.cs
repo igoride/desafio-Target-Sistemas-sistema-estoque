@@ -29,7 +29,7 @@ namespace  Movimentacoes
       }
       
       var rootEstoque = JsonSerializer.Deserialize<RootEstoque>(json);
-      Console.WriteLine(rootEstoque.estoque.Count);
+      Console.WriteLine(rootEstoque!.estoque.Count);
       while (!finish)
       {
         Console.WriteLine("----- Estoque ------\n" +
@@ -38,18 +38,19 @@ namespace  Movimentacoes
                           "3 - Criar movimentação\n" +
                           "4 - Buscar movimentação por codigo\n" +
                           "5 - Listar movimentações\n" +
-                          "6 - Sair");
+                          "6 - Sair\n");
         operacao = Console.ReadLine();
         switch (operacao)
         {
           case "1":
             rootEstoque.estoque.ForEach(estoque =>
             {
-              Console.WriteLine(estoque.ToString() +
+              Console.WriteLine(estoque +
                                 "\n------------------------\n");
             });
             break;
           case "2":
+            Console.WriteLine("Digite o codigo do produto:\n");
             aux = Console.ReadLine();
             int codigoProduto;
             int.TryParse(aux, out codigoProduto);
@@ -63,21 +64,23 @@ namespace  Movimentacoes
             });
             break;
           case "3":
-            _movimentacaoService.criarMovimentacao(movimentacoes, rootEstoque.estoque);
+            MovimentacaoService.criarMovimentacao(movimentacoes, rootEstoque.estoque);
             break;
           case "4":
-            Console.WriteLine("Digite o codigo da movimentacao:");
+            Console.WriteLine("Digite o codigo da movimentacao:\n");
             aux = Console.ReadLine();
             int codigoMovimentacao;
             int.TryParse(aux, out codigoMovimentacao);
-            
-            _movimentacaoService.printByCodigo(codigoMovimentacao,  movimentacoes);
+            MovimentacaoService.printByCodigo(codigoMovimentacao,  movimentacoes);
             break;
           case "5":
-            _movimentacaoService.printAll(movimentacoes);
+            MovimentacaoService.printAll(movimentacoes);
+            break;
+          case "6":
+            finish = true;
             break;
           default:
-            finish = false; 
+            Console.WriteLine("Opção Inválida!");
             break;
         }
       }
